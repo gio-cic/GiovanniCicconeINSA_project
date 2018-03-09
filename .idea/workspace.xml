@@ -3,7 +3,105 @@
   <component name="ChangeListManager">
     <list default="true" id="36611f24-f149-4f51-98b1-e2fb746dc93f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/data_collection/collect_tweets.py" afterPath="$PROJECT_DIR$/data_collection/collect_tweets.py" />
+      <change beforePath="$PROJECT_DIR$/b.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/change_mapping.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/counter_prova.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/frequency-based.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/frequency-based_tfidf.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/get_tweets.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/stopwords.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/streaming_twitter.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/streaming_twitter_tfidf.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/streaming_twitter_tfidf_temp.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/text_processing.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/tf_idf_computation.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/twitter_save_img.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/twitter_streaming_elasticsearch_2.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/code_examples/write_configFile.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/0" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/1" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/10" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/11" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/12" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/13" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/14" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/15" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/16" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/17" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/18" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/19" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/2" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/20" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/21" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/22" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/23" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/24" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/25" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/26" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/27" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/28" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/29" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/3" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/30" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/31" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/32" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/33" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/34" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/35" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/36" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/37" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/38" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/39" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/4" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/40" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/41" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/42" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/43" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/44" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/45" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/46" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/47" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/48" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/49" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/5" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/50" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/51" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/52" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/53" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/54" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/55" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/56" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/57" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/58" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/59" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/6" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/60" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/61" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/62" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/63" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/64" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/65" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/66" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/67" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/7" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/8" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/corpus/9" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/1_tottenham_rochdale/topics_tottenham_rochdale_1_half.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/1_tottenham_rochdale/topics_tottenham_rochdale_2_half.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/1_tottenham_rochdale/tweets_tottenham_rochdale_1_half.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/1_tottenham_rochdale/tweets_tottenham_rochdale_2_half.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/2_ita_political_elections/italian_political_elections.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/2_ita_political_elections/topics_italian_political_elections.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/fr.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/ita.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/italian_political_elections_20180303.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/data/topics_italian_political_elections_20180303.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/italian_political_elections.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/o.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/snow.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/snow_topics.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/tokens.ini" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/topics_italian_political_elections.txt" afterPath="" />
     </list>
     <ignored path="code_examples/" />
     <ignored path="corpus/" />
@@ -54,17 +152,7 @@
         <entry file="file://$PROJECT_DIR$/data_collection/collect_tweets.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="356">
-              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tokens.ini" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tokens.ini">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -202,16 +290,6 @@
               <item name="GiovanniCicconeINSA_project" type="b2602c69:ProjectViewProjectNode" />
               <item name="GiovanniCicconeINSA_project" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="GiovanniCicconeINSA_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GiovanniCicconeINSA_project" type="462c0819:PsiDirectoryNode" />
-              <item name="data_collection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GiovanniCicconeINSA_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GiovanniCicconeINSA_project" type="462c0819:PsiDirectoryNode" />
-              <item name="visualization" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -221,7 +299,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/topics_italian_political_elections.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../prova" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
     <property name="full.screen.before.presentation.mode" value="false" />
   </component>
@@ -376,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520587151933</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="setting repository">
+      <created>1520589526266</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1520589526266</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -461,7 +546,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit, putting files in repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit, putting files in repository" />
+    <MESSAGE value="setting repository" />
+    <option name="LAST_COMMIT_MESSAGE" value="setting repository" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -662,7 +748,7 @@
     <entry file="file://$PROJECT_DIR$/data_collection/collect_tweets.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="356">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
