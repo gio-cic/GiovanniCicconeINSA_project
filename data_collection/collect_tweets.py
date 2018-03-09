@@ -28,7 +28,7 @@ class StdOutListener(StreamListener):
             self.elasticsearch.save_in_elasticsearch(data, self.i)
             self.i += 1
             return True
-        else:○
+        else:
             return False
 
     def on_error(self, status):
