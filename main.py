@@ -99,7 +99,7 @@ if __name__ == '__main__':
 
 
     #main example 1: collect tweets in elasticsearch
-    from_tweets_to_elasticsearch(minute_collecting=1, keywords=['trump, miami'], index='myindex', doctype='mydoctype',
+    from_tweets_to_elasticsearch(minute_collecting=60, keywords = ['genevamotorshow2018', 'gims'], index='myindex', doctype='mydoctype',
                                  host='localhost', port=9200)
 
 

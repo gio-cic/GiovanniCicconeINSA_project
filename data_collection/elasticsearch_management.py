@@ -19,8 +19,8 @@ class elasticsearch_management:
     def save_in_elasticsearch(self, json_data, id_document):
         try:
             self.elasticsearch.create(index= self.index, doc_type=self.doctype, id=int(id_document), body=json_data, ignore=400)
-            print(str(id_document) + " " + json_data)
-
+            #print(str(id_document) + " " + json_data)
+            #print("ok in save_in_elasticsearch")
         except:
             print("Unexpected error in save_in_elasticsearch", sys.exc_info())
             pass

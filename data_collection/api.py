@@ -6,7 +6,7 @@ import json
 def from_tweets_to_elasticsearch(minute_collecting, keywords, index, doctype, host, port):
     es = elasticsearch_management(host=host, port=port)
     es.create_mapping_and_index(index=index, doctype=doctype)
-    collect_tweets(elasticsearch=es, minutes_collecting=minute_collecting, keywords=keywords)
+    collect_tweets(elasticsearch_management=es, minutes_collecting=minute_collecting, keywords=keywords)
 
 
 
