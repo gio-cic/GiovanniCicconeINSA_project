@@ -17,8 +17,8 @@ from scipy.sparse import *
 __authors__ = "Adrien Guille, Nicolas Dugué"
 __email__ = "adrien.guille@univ-lyon2.fr"
 
-
 class Corpus:
+
 
     def __init__(self, source_file_path, stopwords_file_path, min_absolute_freq=10, max_relative_freq=0.4, separator='\t', save_voc=False):
         self.source_file_path = source_file_path

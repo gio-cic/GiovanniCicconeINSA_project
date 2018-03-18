@@ -8,7 +8,7 @@ import sys
 import configparser
 config = configparser.ConfigParser()
 config.sections()
-config.read('tokens.ini')
+config.read('C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/tokens.ini')
 access_token = config['DEFAULT']['access_token']
 access_token_secret = config['DEFAULT']['access_token_secret']
 consumer_key = config['DEFAULT']['consumer_key']
@@ -31,9 +31,12 @@ class StdOutListener(StreamListener):
         else:
             return False
 
-    def on_error(self, status):
-        print("there is an error of elasticsearch "+str(status))
-        return True
+    def on_error(self, status_code):
+        print("there is an error of elasticsearch " + str(status_code))
+        if status_code == 420:
+            # returning False in on_data disconnects the stream
+            time.sleep(60*10)
+            return False
 
 def save_tweet_in_elasticsearch(json_data, obj):
     try:
@@ -65,12 +68,14 @@ class collect_tweets:
         while True:
             try:
                 print("collecting... wait...")
+                stream = Stream(auth=auth, listener=l)
                 stream.filter(track=keywords)
+                stream = None
+                time.sleep(60)
             except:
                 print("Unexpected error in collect_tweets ", sys.exc_info())
                 f = open('collecting_tweets.txt', "a")
                 f.write(str(str(sys.exc_info())+"\n"+"****************************************"+"\n"))
                 f.close()
-                time.sleep(60)
 
 

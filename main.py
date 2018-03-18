@@ -39,7 +39,6 @@ def snow(inputfile, outputfile, language="it",
          time_window_mins=time_window_mins, stop_words=stop_words, tokenizer=d_cl.custom_tokenize_text)
 
 
-#inputFile = "a.csv" outputFile="o.txt"
 def mabed(inputCsvFile, outputFile, outputDir, NumEventsToDetect=10, stopwordsFile="data_cleaning/stopwords/twitter_it.txt", min_absolute_frequency=10, maximumAbsoluteWordFrequency=0.4,
           timeSliceLength=30, numberCandidateWordsPerEvent=10, theta=0.6, sigma=0.6, csvSeparator ='\t'):
     import timeit
@@ -95,27 +94,29 @@ def mabed(inputCsvFile, outputFile, outputDir, NumEventsToDetect=10, stopwordsFi
     from visualization.mabed import visualize
     visualize(outputFile,outputDir)
 
+
+
 if __name__ == '__main__':
-
-
-    #main example 1: collect tweets in elasticsearch
-    from_tweets_to_elasticsearch(minute_collecting=60, keywords = ['genevamotorshow2018', 'gims'], index='myindex', doctype='mydoctype',
-                                 host='localhost', port=9200)
-
-
     '''
+    #main example 1: collect tweets in elasticsearch
+    from_tweets_to_elasticsearch(minute_collecting=60*11, keywords = ['donald trump'],
+                                 index='myindex', doctype='mydoctype', host='localhost', port=9200)
+    '''
+
+
+
     #main example 2: execute mabed on a tweets collection
-    from_elasticsearch_to_csv(filenameOut="b.csv", index="italian_political_elections_collection_1",
+    '''from_elasticsearch_to_csv(filenameOut="b.csv", index="italian_political_elections_collection_1",
                               doctype="tweet",
                               language='it',
-                              fields_to_extract=['date', 'text'])
-    mabed(inputCsvFile="b.csv", outputFile="o.txt", outputDir ="outDir2")'''
+                              fields_to_extract=['date', 'text'])'''
+    #mabed(inputCsvFile="data/3_FDL2015/FDL2015_mabed.csv", outputFile="data/3_FDL2015/mabed_output.txt", outputDir ="outDir_FDL2015", stopwordsFile="data_cleaning/stopwords/twitter_fr.txt", NumEventsToDetect=5)
 
-    '''
+
     #main example 3: execute snow on a tweets collection
-    from_elasticsearch_to_csv(filenameOut="snow.csv", index="italian_political_elections_collection_1",
+    '''from_elasticsearch_to_csv(filenameOut="snow.csv", index="italian_political_elections_collection_1",
                               doctype="tweet",
                               language='it',
                               fields_to_extract=['tweet_unixtime', 'tweet_gmttime', 'tweet_id', 'text', 'hashtags',
-                                                 'users', 'urls', 'media_urls', 'nfollowers', 'nfriends'])
-    snow("snow.csv", "snow_topics.csv", language="it", time_window_mins=30)'''
+                                                 'users', 'urls', 'media_urls', 'nfollowers', 'nfriends'])'''
+    '''snow("C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/data/3_FDL2015/FDL2015_snow.csv", "FDL2015_snow_topics.csv", language="fr", time_window_mins=100)'''

@@ -121,7 +121,7 @@ def nltk_tokenize(text):
 
 '''Assumes its ok to remove user mentions and hashtags from tweet text (normalize_text), '''
 '''since we extracted them already from the json object'''
-def process_json_tweet(text, fout, debug):
+def process_json_tweet(text, debug):
     features = []
 
     if len(text.strip()) == 0:

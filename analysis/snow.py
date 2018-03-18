@@ -15,7 +15,6 @@ from sklearn import preprocessing
 from sklearn.metrics.pairwise import pairwise_distances
 import data_cleaning.snow as d_cl
 
-'''start main'''
 def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_window_mins = 15.):
 
     # file_timeordered_news = codecs.open(sys.argv[3], 'r', 'utf-8')
@@ -60,17 +59,18 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
             #  		#while this condition holds we are within the given size time window
             if (tweet_unixtime - tweet_unixtime_old) < time_window_mins * 60:
                 ntweets += 1
-                features = d_cl.process_json_tweet(text, fout, debug)
+                features = d_cl.process_json_tweet(text, debug)
 
                 tweet_bag = ""
                 try:
                     for user in set(users):
                         tweet_bag += "@" + user.lower() + ","
                     for tag in set(hashtags):
-                        if tag.decode('utf-8').lower() not in stop_words:
+                        if tag.lower() not in stop_words:
                             tweet_bag += "#" + tag.lower() + ","
                     for feature in features:
-                        tweet_bag += feature + ","
+                        if feature.lower() not in stop_words:
+                            tweet_bag += feature + ","
                 except:
                     # print "tweet_bag error!", tweet_bag, len(tweet_bag.split(","))
                     pass
@@ -202,10 +202,8 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
                 #  					except: pass
 
                 # 				print "total VocTimeWindows so far:", len(dfVocTimeWindows)
-                print ("sorted wdfVoc*boost_entity:")
-                print (sorted(((v, k) for k, v in boosted_wdfVoc.items()), reverse=True))
-
-
+                print("sorted wdfVoc*boost_entity:")
+                print(sorted(((v, k) for k, v in boosted_wdfVoc.items()), reverse=True))
                 #clustering
                 # Hclust: fast hierarchical clustering with fastcluster
                 # X is samples by features
@@ -262,6 +260,7 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
                             # print "centroid_tweet:", cluster_tweet
                             for term in np.nditer(cluster_tweet):
                                 # print "term:", term#, wdfVoc[term]
+
                                 try:
                                     cluster_score[cl] = max(cluster_score[cl], boosted_wdfVoc[str(term).strip()])
                                 # cluster_score[cl] += wdfVoc[str(term).strip()] * boost_entity[str(term)] #* boost_term_in_article[str(term)]
@@ -383,6 +382,7 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
                     selected_raw_tweets_set = set()
                     tids_cluster = []
                     for i in hclidx:
+
                         clean_headline += headline_corpus[i].replace(",", " ") + "//"
                         keywords += orig_headline_corpus[i].lower() + ","
                         tid = headline_to_tid[headline_corpus[i]]
@@ -403,7 +403,6 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
                     keywords_list = str(sorted(list(set(keywords[:-1].split(",")))))[1:-1].replace('u\'',
                                                                                                                      '').replace(
                         '\'', '')
-
                     try:
                         print
                         ("\n", clean_headline.decode('utf8', 'ignore'))  # , "\t", keywords_list
@@ -448,4 +447,163 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
 
     #file_timeordered_tweets.close()
     fout.close()
+
+
+def get_popular_ngrams_in_1_window(inputDir, window_index, stop_words, tokenizer, language='it', flexibility = 1.0):
+    tweet_unixtime_old = -1
+    tid_to_raw_tweet = {}
+    window_corpus = []
+    tid_to_urls_window_corpus = {}
+    tids_window_corpus = []
+    dfVocTimeWindows = {}
+    t = 0
+    ntweets = 0
+    import csv
+    with open(inputDir+"/_"+str(window_index)+".csv", 'r') as input_file:
+        csv_reader = csv.reader(input_file, delimiter="\t")
+        header = next(csv_reader)
+        for line in csv_reader:
+            [tweet_unixtime, tweet_gmttime, tweet_id, text, hashtags, users, urls, media_urls, nfollowers,
+             nfriends] = line
+            tweet_unixtime = int(tweet_unixtime)
+            hashtags = eval(hashtags)
+            users = eval(users)
+            urls = eval(urls)
+            media_urls = eval(media_urls)
+            nfollowers = int(nfollowers)
+            nfriends = int(nfriends)
+            if tweet_unixtime_old == -1:
+                tweet_unixtime_old = tweet_unixtime
+
+            ntweets += 1
+            features = d_cl.process_json_tweet(text, 0)
+            tweet_bag = ""
+            try:
+                for user in set(users):
+                    tweet_bag += "@" + user.lower() + ","
+                for tag in set(hashtags):
+                    if tag.lower() not in stop_words:
+                        tweet_bag += "#" + tag.lower() + ","
+                for feature in features:
+                    if feature.lower() not in stop_words:
+                        tweet_bag += feature + ","
+            except:
+                pass
+            if len(users) < 3 and len(hashtags) < 3 and len(features) > 3 and len(
+                    tweet_bag.split(",")) > 4 and not str(
+                    features).upper() == str(features):
+                tweet_bag = tweet_bag[:-1]
+                window_corpus.append(tweet_bag)
+                tids_window_corpus.append(tweet_id)
+                tid_to_urls_window_corpus[tweet_id] = media_urls
+                tid_to_raw_tweet[tweet_id] = text
+    t += 1
+    try:
+        vectorizer = CountVectorizer(tokenizer=tokenizer, binary=True,min_df=max(int(len(window_corpus) * 0.0025), 10), ngram_range=(2, 3))
+        #vectorizer = CountVectorizer(tokenizer=tokenizer, ngram_range=(2, 3))
+        # vectorizer = CountVectorizer(tokenizer=d_cl.custom_tokenize_text, binary=True,min_df=0, ngram_range=(2, 3)) #Convert a collection of text documents to a matrix of token counts
+        X = vectorizer.fit_transform(window_corpus)  # Learn the vocabulary dictionary and return term-document matrix.
+    except ValueError:
+        return []
+    map_index_after_cleaning = {}
+    Xclean = np.zeros((1, X.shape[1]))
+    for i in range(0, X.shape[0]):
+        # keep sample with size at least 5
+        if X[i].sum() > 4:
+            Xclean = np.vstack([Xclean, X[i].toarray()])
+            map_index_after_cleaning[Xclean.shape[0] - 2] = i
+    #   					else:
+    #   						print "OOV tweet:"
+    #  	 				print map_index_after_cleaning
+
+    Xclean = Xclean[1:, ]
+    X = Xclean
+    Xdense = np.matrix(X).astype('float')
+    X_scaled = preprocessing.scale(Xdense)
+    X_normalized = preprocessing.normalize(X_scaled,
+                                           norm='l2')  # Scale input vectors individually to unit norm (vector length).
+    vocX = vectorizer.get_feature_names()
+    # print "Vocabulary (tweets):", vocX
+    # sys.exit()
+
+    # print(X_scaled)
+    # print(X_normalized)
+    # print(vocX)
+    '''boost_entity = {}
+    pos_tokens = CMUTweetTagger.runtagger_parse([term.upper() for term in vocX])
+    # print "detect entities", pos_tokens
+    for l in pos_tokens:
+        term = ''
+        for gr in range(0, len(l)):
+            term += l[gr][0].lower() + " "
+        if "^" in str(l):
+            boost_entity[term.strip()] = 2.5
+        else:
+            boost_entity[term.strip()] = 1.0
+    # 				print "boost_entity",  sorted( ((v,k) for k,v in boost_entity.iteritems()), reverse=True)
+
+    #  				boost_term_in_article = {}
+    #  				for term in vocX:
+    #   					if term in vocA:
+    #  						#print "boost term in article:", term, vocA
+    #  						boost_term_in_article[term] = 1.5
+    #  					else:
+    #  						boost_term_in_article[term] = 1.0
+    #  				print "boost_term_in_article", sorted( ((v,k) for k,v in boost_term_in_article.iteritems()), reverse=True)'''
+
+    dfX = X.sum(axis=0)
+    dfVoc = {}
+    wdfVoc = {}
+    boosted_wdfVoc = {}
+    keys = vocX
+    vals = dfX
+    for k, v in zip(keys, vals):
+        dfVoc[k] = v
+    for k in dfVoc:
+        try:
+            dfVocTimeWindows[k] += dfVoc[k]
+            avgdfVoc = (dfVocTimeWindows[k] - dfVoc[k]) / (t - 1)
+        except:
+            dfVocTimeWindows[k] = dfVoc[k]
+            avgdfVoc = 0
+
+        wdfVoc[k] = (dfVoc[k] + 1) / (np.log(avgdfVoc + 1) + 1)
+        try:
+            boosted_wdfVoc[k] = wdfVoc[k] * 1
+        except:
+            boosted_wdfVoc[k] = wdfVoc[k]
+    mean_value =  np.array(list(boosted_wdfVoc.values())).mean()
+    temp = list(sorted(((v, k) for k, v in boosted_wdfVoc.items() if v > flexibility * mean_value), reverse=True))
+    #print("sorted wdfVoc*boost_entity:", resultlist[:10])
+    temp = [k for (v,k) in temp[:1]]
+    resultlist = list()
+
+    for ngram in temp:
+        bol = True
+        for word in ngram.split():
+            if(word in stop_words):
+                bol = False
+        if(bol):
+            resultlist.append(ngram)
+            print(i,"***", tweet_gmttime)
+    return resultlist
+
+
+#a new ngram is selected only if its value is > flexibility * avg(values in that window)
+def get_popular_ngrams_in_all_windows(language, number_of_windows, inputDir, flexibility):
+    stop_words = set()
+    with open("C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/data_cleaning/stopwords/twitter_"+language+".txt", 'r') as input_file:
+        for line in input_file.readlines():
+            stop_words.add(line.strip('\n'))
+    keywords = list()
+    for i in range(number_of_windows):
+        popular_ngrams_in_window = get_popular_ngrams_in_1_window(inputDir, i, stop_words, d_cl.custom_tokenize_text, language=language, flexibility = flexibility)
+        for ngram in popular_ngrams_in_window:
+            if ngram not in keywords:
+                keywords.append(ngram)
+                print(ngram)
+                break
+
+if __name__ == '__main__':
+    get_popular_ngrams_in_all_windows("fr", 161, "C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/snow_windowses_3", 1.0)
 

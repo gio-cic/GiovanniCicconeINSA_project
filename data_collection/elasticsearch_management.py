@@ -1,10 +1,15 @@
 from elasticsearch import Elasticsearch
 import sys
 class elasticsearch_management:
+
     def __init__(self, host, port):
         self.host = host
         self.port = port
         self.elasticsearch = Elasticsearch([{'host': host, 'port': int(port)}])
+
+    def set_index_and_doc_type(self, index, doctype):
+        self.index = index
+        self.doctype = doctype
 
     def create_mapping_and_index(self, index, doctype):
         self.index = index
@@ -18,7 +23,7 @@ class elasticsearch_management:
 
     def save_in_elasticsearch(self, json_data, id_document):
         try:
-            self.elasticsearch.create(index= self.index, doc_type=self.doctype, id=int(id_document), body=json_data, ignore=400)
+            self.elasticsearch.create(index= self.index, doc_type=self.doctype, id=int(id_document), body=json_data)
             #print(str(id_document) + " " + json_data)
             #print("ok in save_in_elasticsearch")
         except:
