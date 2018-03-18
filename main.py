@@ -1,22 +1,5 @@
 
 from data_collection.elasticsearch_management import elasticsearch_management
-import configparser
-
-
-config = configparser.ConfigParser()
-config.sections()
-config.read('config.ini')
-
-INDEX_CONF = config['ELASTICSEARCH_PARAMETERS']['index']
-DOC_TYPE_CONF = config['ELASTICSEARCH_PARAMETERS']['doc_type']
-HOST_CONF = config['ELASTICSEARCH_PARAMETERS']['host']
-PORT_CONF = config['ELASTICSEARCH_PARAMETERS']['port']
-MINUTES_COLLECTING= config['DEFAULT']['minutes_collecting']
-FILENAME_COLLECTED_TWEETS = config['DEFAULT']['filename_collected_tweets'] #text file in which I save the tweets
-FILENAME_OUTPUT_TOPICS = config['DEFAULT']['filename_output_topics'] #text file in which I save the output topics
-TIME_WINDOW = config['DEFAULT']['time_window'] #time interval of execution of SNOW algorithm
-
-
 
 def from_tweets_to_elasticsearch(minute_collecting=1, keywords=['milan, arsenal'], index='myindex', doctype='mydoctype', host='localhost', port=9200):
     from data_collection import api
