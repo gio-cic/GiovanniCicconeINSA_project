@@ -449,7 +449,7 @@ def snow(inputfile, outputfile, stop_words, tokenizer,language = 'it', time_wind
     fout.close()
 
 
-def get_popular_ngrams_in_1_window(inputDir, window_index, stop_words, tokenizer, language='it', flexibility = 1.0):
+def get_popular_ngrams_in_1_window(inputDir, window_index, stop_words, tokenizer, flexibility, keywords = None):
     tweet_unixtime_old = -1
     tid_to_raw_tweet = {}
     window_corpus = []
@@ -465,6 +465,17 @@ def get_popular_ngrams_in_1_window(inputDir, window_index, stop_words, tokenizer
         for line in csv_reader:
             [tweet_unixtime, tweet_gmttime, tweet_id, text, hashtags, users, urls, media_urls, nfollowers,
              nfriends] = line
+
+            if keywords is not None:
+                bol1 = False
+                for ngram in keywords:
+                    bol2 = True
+                    for unigram in ngram.split():
+                        bol2 = bol2 and unigram in text
+                    bol1 = bol1 or bol2
+                if not bol1:
+                    continue
+
             tweet_unixtime = int(tweet_unixtime)
             hashtags = eval(hashtags)
             users = eval(users)
@@ -588,22 +599,55 @@ def get_popular_ngrams_in_1_window(inputDir, window_index, stop_words, tokenizer
             print(i,"***", tweet_gmttime)
     return resultlist
 
+def ngram_in_text(text, ngram):
+    bol = True
+    for unigram in ngram.split():
+        bol = bol and unigram in text.split()
+    return bol
+
+
+def to_add_in_missed(text, proposedNgram, InitialSetKeywords):
+    #proposedNgram deve essere in text
+    bol = ngram_in_text(text, proposedNgram)
+    for ngram in InitialSetKeywords:
+        bol = bol and not ngram_in_text(text, ngram)
+    return bol
+
+def missed(number_of_windows_in_which_compute_missed , inputDir, InitialSetKeywords, proposedNgram):
+    import csv
+    num_missed = 0
+    for window_index in range(int(number_of_windows_in_which_compute_missed)+1):
+        with open(inputDir+"/_"+str(window_index)+".csv", 'r') as input_file:
+            csv_reader = csv.reader(input_file, delimiter="\t")
+            header = next(csv_reader)
+            for line in csv_reader:
+                [tweet_unixtime, tweet_gmttime, tweet_id, text, hashtags, users, urls, media_urls, nfollowers,
+                 nfriends] = line
+                text = text.lower()
+                num_missed += to_add_in_missed(text, proposedNgram, InitialSetKeywords)
+    return num_missed
+
 
 #a new ngram is selected only if its value is > flexibility * avg(values in that window)
-def get_popular_ngrams_in_all_windows(language, number_of_windows, inputDir, flexibility):
+def get_popular_ngrams_in_all_windows(language, number_of_windows, inputDir, flexibility, keywords):
+    I_kw_S = keywords
     stop_words = set()
     with open("C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/data_cleaning/stopwords/twitter_"+language+".txt", 'r') as input_file:
         for line in input_file.readlines():
             stop_words.add(line.strip('\n'))
-    keywords = list()
+    proposed_keywords = list()
     for i in range(number_of_windows):
-        popular_ngrams_in_window = get_popular_ngrams_in_1_window(inputDir, i, stop_words, d_cl.custom_tokenize_text, language=language, flexibility = flexibility)
+        popular_ngrams_in_window = get_popular_ngrams_in_1_window(inputDir, i, stop_words, d_cl.custom_tokenize_text, flexibility = flexibility, keywords= I_kw_S)
         for ngram in popular_ngrams_in_window:
-            if ngram not in keywords:
-                keywords.append(ngram)
+            if ngram not in proposed_keywords:
+                proposed_keywords.append(ngram)
                 print(ngram)
+
+                print("missed ",str(missed(number_of_windows_in_which_compute_missed = i-1, inputDir=inputDir, InitialSetKeywords = I_kw_S, proposedNgram = ngram)))
+                print("\n")
                 break
 
 if __name__ == '__main__':
-    get_popular_ngrams_in_all_windows("fr", 161, "C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/snow_windowses_3", 1.0)
+    get_popular_ngrams_in_all_windows("fr", 175, "C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/snow_windowses_4", 1.0,
+                                      keywords = ["fn", "barrage" , "score", "médias", "faut", "ps", "dû", "théâtrale", "umps:il", "emplois"])
 

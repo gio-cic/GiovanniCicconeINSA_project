@@ -14,7 +14,7 @@ def from_elasticsearch_to_csv(filenameOut="prova.txt", index="italian_political_
                                   elasticsearch=em.elasticsearch, language=language, fields_to_extract=fields_to_extract)
 
 def snow(inputfile, outputfile, language="it",
-         time_window_mins=int(TIME_WINDOW)):
+         time_window_mins=30):
     from analysis.snow import snow
     from data_cleaning import snow as d_cl
     stop_words = d_cl.load_stopwords(language)
@@ -80,6 +80,15 @@ def mabed(inputCsvFile, outputFile, outputDir, NumEventsToDetect=10, stopwordsFi
 
 
 if __name__ == '__main__':
+
+
+
+    #split data collection in fixed_time windowses
+    from data_collection import api
+    api.split_dataset_fixed_timewindows(inputFile="C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/data/3_FDL2015/FDL2015_snow.csv",
+                                        outFile="C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/data/3_FDL2015/FDL2015_snow_2.csv",
+                                        outputDir = "snow_windowses_4",
+                                        InitialKeywordSet=None)
     '''
     #main example 1: collect tweets in elasticsearch
     from_tweets_to_elasticsearch(minute_collecting=60*11, keywords = ['donald trump'],

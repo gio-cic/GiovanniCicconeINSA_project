@@ -108,7 +108,7 @@ def from_elasticsearch_to_csv(filenameOut, index, doctype, elasticsearch,
                             pass
                 i = i + 1
 
-def split_dataset_fixed_timewindows(inputFile, InitialKeywordSet, outFile, outputDir):
+def split_dataset_fixed_timewindows(inputFile, outFile, outputDir, InitialKeywordSet = None):
     import csv
     # I want to follow "fn" sub-event in FDL_2015 dataset:
     #    S_ = "fn" sub-event
@@ -128,10 +128,13 @@ def split_dataset_fixed_timewindows(inputFile, InitialKeywordSet, outFile, outpu
              nfriends] = line
             text = str(text)
             bool = False
-            for k in I_kw_S:
-                if k in text or k in hashtags:
-                    bool = True
-                    break
+            if I_kw_S is None:
+                bool = True
+            else:
+                for k in I_kw_S:
+                    if k in text or k in hashtags:
+                        bool = True
+                        break
             if bool:
                 writer.writerow(line)
 
