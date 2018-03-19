@@ -643,7 +643,7 @@ def get_popular_ngrams_in_all_windows(language, number_of_windows, inputDir, fle
                 proposed_keywords.append(ngram)
                 print(ngram)
 
-                print("missed ",str(missed(number_of_windows_in_which_compute_missed = i-1, inputDir=inputDir, InitialSetKeywords = I_kw_S, proposedNgram = ngram)))
+                print("missed ",str(missed(number_of_windows_in_which_compute_missed = i, inputDir=inputDir, InitialSetKeywords = I_kw_S, proposedNgram = ngram)))
                 print("\n")
                 break
 

@@ -149,7 +149,6 @@ def split_dataset_fixed_timewindows(inputFile, outFile, outputDir, InitialKeywor
     tweet_unixtime_old = -1
     t = 0
     import csv
-
     with open(inputFile, 'r') as input_file:
         csv_reader = csv.reader(input_file, delimiter="\t")
         header = next(csv_reader)

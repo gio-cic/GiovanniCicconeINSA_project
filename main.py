@@ -82,7 +82,6 @@ def mabed(inputCsvFile, outputFile, outputDir, NumEventsToDetect=10, stopwordsFi
 if __name__ == '__main__':
 
 
-
     #split data collection in fixed_time windowses
     from data_collection import api
     api.split_dataset_fixed_timewindows(inputFile="C:/Users/giovanni/PycharmProjects/GiovanniCicconeINSA_project/data/3_FDL2015/FDL2015_snow.csv",
